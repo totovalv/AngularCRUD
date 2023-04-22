@@ -1,0 +1,23 @@
+.titleUsers{
+  display: flex;
+  justify-content: center;
+  padding: 2vh;
+}
+.spinner{
+ position: absolute;
+ top: 50%;
+ left: 50%;
+}
+.notUser{
+  position: absolute;
+  top: 30%;
+  left: 41%;
+  padding: 2vh;
+  background: rgb(145, 115, 172);
+  color: whitesmoke;
+  border-radius: 1rem;
+  width: 15rem;
+  border: 0.5px solid whitesmoke;
+  display: flex;
+  justify-content: center;
+}
