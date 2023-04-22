@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <h1 class="">Edit User</h1>
+  <form #form="ngForm" (ngSubmit)="updateUser()" >
+        <div class="container" >
+          <div class="row">
+            <div class="col-sm">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input type="text" class="form-control" id="id" name="id"  readonly
+          [(ngModel)]="userDetail.id">
+        </div> 
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" name="name" 
+          [(ngModel)]="userDetail.name" placeholder="Enter name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email"  placeholder="Enter email" name="email" 
+          [(ngModel)]="userDetail.email">
+        </div>
+        <button type="button" class="btn btn-danger mr-2" (click)="deleteUser(userDetail.id)">Delete</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+        <div class="col-sm">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="number" class="form-control" id="phone"  placeholder="Enter phone" name="phone" 
+          [(ngModel)]="userDetail.phone">
+        </div>
+        <div class="form-group">
+          <label for="salary">Salary</label>
+          <input type="number" class="form-control" id="salary"  placeholder="Enter salary"  name="salary" 
+          [(ngModel)]="userDetail.salary">
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city"  placeholder="Enter city" name="city" 
+          [(ngModel)]="userDetail.city">
+        </div>
+      </div>
+      </div>
+    </div>
+      </form>
+  
+  
+  </div>
+  
