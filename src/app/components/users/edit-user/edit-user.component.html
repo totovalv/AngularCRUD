@@ -1,48 +1,152 @@
 <div class="container-fluid">
-  <h1 class="">Edit User</h1>
-  <form #form="ngForm" (ngSubmit)="updateUser()" >
-        <div class="container" >
-          <div class="row">
-            <div class="col-sm">
-        <div class="form-group">
-          <label for="id">ID</label>
-          <input type="text" class="form-control" id="id" name="id"  readonly
-          [(ngModel)]="userDetail.id">
-        </div> 
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name" name="name" 
-          [(ngModel)]="userDetail.name" placeholder="Enter name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control" id="email"  placeholder="Enter email" name="email" 
-          [(ngModel)]="userDetail.email">
-        </div>
-        <button type="button" class="btn btn-danger mr-2" (click)="deleteUser(userDetail.id)">Delete</button>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
+  <h1 class="title">Edit User</h1>
+  <form
+    #form="ngForm"
+    class="bg-light p-3 formBorder w-50"
+    (ngSubmit)="updateUser()"
+  >
+    <div class="container-fluid">
+      <div class="row">
         <div class="col-sm">
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input type="number" class="form-control" id="phone"  placeholder="Enter phone" name="phone" 
-          [(ngModel)]="userDetail.phone">
+          <div class="form-group">
+            <label for="id">ID</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              name="id"
+              readonly
+              [(ngModel)]="userDetail.id"
+            />
+            <div class="info">· This is the user number identification</div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="number"
+              class="form-control"
+              id="phone"
+              placeholder="Enter phone"
+              name="phone"
+              [(ngModel)]="userDetail.phone"
+              required
+              #phone="ngModel"
+              min="10000000"
+              max="9999999999"
+              name="phone"
+            />
+            <div class="info">· The phone must have at least 8 characters</div>
+            <div class="info">· For example "12345678"</div>
+            <div class="errorForm" *ngIf="phone.invalid && phone.touched">
+              · Please enter a valid Phone
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+              name="email"
+              [(ngModel)]="userDetail.email"
+              minlength="6"
+              required
+              #email="ngModel"
+              pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            />
+            <div class="info">· The email must be something like this</div>
+            <div class="info">· For example "example@example.com"</div>
+            <div class="errorForm" *ngIf="email.invalid && email.touched">
+              · Please enter a valid email
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="salary">Salary</label>
-          <input type="number" class="form-control" id="salary"  placeholder="Enter salary"  name="salary" 
-          [(ngModel)]="userDetail.salary">
+        <div class="col-sm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              [(ngModel)]="userDetail.name"
+              placeholder="Enter name"
+              required
+              #name="ngModel"
+              minlength="3"
+            />
+            <div
+              class="info"
+              *ngIf="
+          !name.invalid
+              "
+            >
+              · Must have more than 3 characters
+            </div>
+            <div class="errorForm" *ngIf="userDetail.name.length==0 && name.touched">
+              · Name is required.
+            </div>
+            <div
+              class="errorForm"
+              *ngIf="name.touched && userDetail.name.length < 3 && userDetail.name.length > 0"
+            >
+              · Please enter at least 3 characters
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="salary">Salary</label>
+            <input
+              type="number"
+              class="form-control"
+              id="salary"
+              placeholder="Enter salary"
+              name="salary"
+              min="1"
+              required
+              #salary="ngModel"
+              name="salary"
+              [(ngModel)]="userDetail.salary"
+            />
+            <div class="info" *ngIf="!salary.invalid || !salary.touched">
+              · Must be a number more than 0
+            </div>
+            <div class="errorForm" *ngIf="salary.invalid && salary.touched">
+              · Please enter a valid Salary
+            </div>
+            <div class="hidden">HIDDEN</div>
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              placeholder="Enter city"
+              name="city"
+              [(ngModel)]="userDetail.city"
+              minlength="1"
+              required
+              #city="ngModel"
+            />
+            <div class="info">· Enter your city name</div>
+            <div class="errorForm" *ngIf="city.invalid && city.touched">
+              City is required.
+            </div>
+          </div>
+          <div class="btnContainer">
+            <button
+              type="button"
+              class="btn btn-danger mr-2 buttons"
+              (click)="deleteUser(userDetail.id)"
+            >
+              Delete
+            </button>
+            <button [disabled]="form.invalid" type="submit" class="btn btn-primary buttons">Save</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" class="form-control" id="city"  placeholder="Enter city" name="city" 
-          [(ngModel)]="userDetail.city">
-        </div>
-      </div>
       </div>
     </div>
-      </form>
-  
-  
-  </div>
-  
+  </form>
+</div>

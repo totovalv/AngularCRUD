@@ -1,38 +1,152 @@
-<div class="container-fluid ">
-<h1 class="text-white ">Add New User</h1>
-<div class="row">
-  <div class="col-6">
-    <form #form="ngForm" class="bg-light p-3 rounded " bg-light (ngSubmit)="addUser()" >
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="name" 
-        [(ngModel)]="addUserRequest.name" placeholder="Enter name">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email"  placeholder="Enter email" name="email" 
-        [(ngModel)]="addUserRequest.email">
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="number" class="form-control" id="phone"  placeholder="Enter phone" name="phone" 
-        [(ngModel)]="addUserRequest.phone">
-      </div>
-      <div class="form-group">
-        <label for="salary">Salary</label>
-        <input type="number" class="form-control" id="salary"  placeholder="Enter salary"  name="salary" 
-        [(ngModel)]="addUserRequest.salary">
-      </div>
-      <div class="form-group">
-        <label for="city">City</label>
-        <input type="text" class="form-control" id="city"  placeholder="Enter city" name="city" 
-        [(ngModel)]="addUserRequest.city">
-      </div>
-  
-      <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-  </div>
-</div>
+<div class="container-fluid">
+  <h1  class="title">Add new user</h1>
+  <form
+    #form="ngForm"
+    class="bg-light p-3 formBorder w-50"
+    bg-light
+    (ngSubmit)="addUser()"
+  >
+    <div class="container-fluid ">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              #name="ngModel"
+              [(ngModel)]="addUserRequest.name"
+              placeholder="Enter name"
+              required
+              minlength="3"
+            />
+            <div
+            class="info"
+            *ngIf="
+        !name.touched
+            "
+          >
+            · Must have more than 3 characters
+          </div>
+          <div class="errorForm" *ngIf="addUserRequest.name.length==0 && name.touched">
+            · Name is required.
+          </div>
+          <div
+            class="errorForm"
+            *ngIf="name.touched && addUserRequest.name.length < 3 && addUserRequest.name.length > 0"
+          >
+            · Please enter at least 3 characters
+          </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter phone"
+              id="phone"
+              required
+              #phone="ngModel"
+              min="10000000"
+              max="9999999999"
+              name="phone"
+              [(ngModel)]="addUserRequest.phone"
+            />
+            <div class="info">
+              · The phone must have at least 8 characters "12345678"
+            </div>
+            <div class="errorForm" *ngIf="phone.invalid && phone.touched">
+              · Please enter a valid Phone
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="salary">Salary </label>
+            <div class="salaryInput">
+              <input
+                type="number"
+                class="form-control salary"
+                id="salary"
+                placeholder="Enter salary"
+                min="1"
+                required
+                #salary="ngModel"
+                name="salary"
+                [(ngModel)]="addUserRequest.salary"
+              />
+              <div class="usd">U$D</div>
+            </div>
+           
+            <div class="info" *ngIf="!salary.invalid || !salary.touched">
+              · Must be a number more than 0
+            </div>
+            <div class="errorForm" *ngIf="salary.invalid && salary.touched">
+              · Please enter a valid Salary
+            </div>
+            <div class="errorForm" *ngIf="salary.invalid && salary.touched">
+              · Must be more than 0
+            </div>
+            <div class="hidden">HIDDEN</div>
+          </div>
+       
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+              name="email"
+              minlength="6"
+              required
+              #email="ngModel"
+              [(ngModel)]="addUserRequest.email"
+              pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            />
+            <div class="info">
+              · The email must be something like this "example@example.com"
+            </div>
+            <div class="errorForm" *ngIf="email.invalid && email.touched">
+              · Please enter a valid email 
+            </div>
+          </div>
+         
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              minlength="1"
+              required
+              #city="ngModel"
+              placeholder="Enter city"
+              name="city"
+              [(ngModel)]="addUserRequest.city"
+            />
+            <div class="info">
+              · Enter your city name
+            </div>
+            <div class="errorForm" *ngIf="city.invalid && city.touched">
+              City is required.
+            </div>
+           
+          </div>
+          <div class="btnContainer">
 
-
+            <button
+            [disabled]="form.invalid"
+            type="submit"
+            class="btn btn-primary buttons"
+            >
+            Save
+          </button>
+        </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
